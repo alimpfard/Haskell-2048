@@ -1,14 +1,12 @@
 {-# OPTIONS_GHC -Wall #-}
 
-module Haskell2048
-  ( main
-  ) where
-
 import Prelude hiding (Right, Left)
 
 import Control.Monad (liftM)
 import Data.List     (elemIndices, transpose)
+import System.IO     (BufferMode(..), hSetBuffering, stdin)
 import System.Random (randomRIO)
+
 
 -- Each inner list is a row, starting with the top row
 -- A 0 is an empty tile
@@ -98,6 +96,7 @@ boardToString = unlines . map show
 
 main :: IO ()
 main = do
+    hSetBuffering stdin NoBuffering
     let row = [0,0,0,0]
     let board = [row,row,row,row]
     b1 <- addTile board
